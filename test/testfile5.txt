@@ -1,0 +1,99 @@
+
+int glb = 1; 
+
+
+void testBlock()
+{
+    int a1 = 0; 
+    int c = 2;
+    int array[3][1] = {{1}, {2}, {3}};  
+    {
+        int c1 = 0, c2 = c * a1;
+        int cc[1] = {1};
+        int ccc[1] = {1}, ddd[1][2] = {{1, 2}};
+    } // decl
+    {
+        array[2][1] = 1;
+        ;
+        1+1; // | [Exp] ';' //有无Exp两种情况
+        { //| Block
+            c = -1; 
+            a1 = c + 1; 
+        }
+        if (c || a1) { 
+            //| 'if' '(' Cond ')' Stmt [ 'else' Stmt ] // 1.有else 2.无else
+            c = -1; 
+        } else /* condition */ 
+        {
+            /* code */
+            c = 1; 
+        }
+
+        // if (c == 1) {
+        //     ; 
+        // }
+
+        //| 'while' '(' Cond ')' Stmt
+        while (c >= 0) {
+            c = c-1; 
+            if (c == 0) break;
+            if (!c) {;}
+            if (c == 1) continue;
+            //| 'break' ';' | 'continue' ';'
+        }
+        int a; a = getint(); 
+        ; 
+        ; 
+        return; 
+
+    } // stmt
+    return;
+}
+
+
+void changeGlob() {
+    glb = 0 ;
+    return; 
+}
+
+int main()
+{
+    int n; n = getint();
+    printf("20373456\n"); 
+    // test_p(); 
+    // test expr
+        int a1 = 0, a2 = 0, a3 = 0; 
+        int c = 2;
+        int c1 = 0, c2 = c * a1;
+        int cc[1] = {1};
+        int ccc[1] = {1}, ddd[1][2] = {{1, 2}};
+    //     //PrimaryExp → '(' Exp ')' | LVal | Number
+    //     a1 = (1+1);  a2 = a1; a3 = 0;
+    // //     //UnaryExp → PrimaryExp | Ident '(' [FuncRParams] ')' | UnaryOp UnaryExp
+    //     a1 = funcDefInt1(); 
+    //     a2 = +-+ funcDefInt2(a1); // ?
+    //     a3 = -(-(a1)); 
+
+    //     // MulExp → UnaryExp | MulExp ('*' | '/' | '%') UnaryExp
+        // a1 = (1+1)*(0-a1)/a2%1; 
+        printf("%d\n", a1);
+        printf("%d\n", a1);
+        printf("%d\n", a1);
+        printf("%d\n", a1);
+        printf("%d\n", a1);
+        printf("%d\n", a1);
+        printf("%d\n", a1);
+        printf("%d\n", a1);
+    //     //AddExp → MulExp | AddExp ('+' | '−') MulExp
+        // a1 = (1)*-(-(a1))/(a2) % 1 + 114514 - 0; 
+
+    //     // 
+    //     if (0 < (1)*-(-(a1))/(a2) % 1 + 114514 - funcDefInt1() ) {
+    //         if (0 < (1)*-(-(a1))/(a2) % 1 + 114514 - 0 <= 1 >= 2 < 3 > 4 && 2 == 1 || 1 == 1) {
+    //             ; 
+    //         } 
+    //     }
+        changeGlob(); 
+        printf("%d",glb);
+    return 0;  
+}

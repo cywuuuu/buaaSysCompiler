@@ -1,0 +1,17 @@
+
+int Fu1_nC() {
+	int i = 0;
+	if(!i) {
+		return 1 + 2;
+	}
+	return 2 + 2;
+}
+
+
+int main(){
+	printf("20373420\n");
+	printf("Fu1_nC(): %d\n", Fu1_nC());
+	
+
+	return 0;
+}

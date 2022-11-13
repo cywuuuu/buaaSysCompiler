@@ -1,0 +1,164 @@
+int n;
+int visit[5]={0, 0, 0, 0, 0};
+int a[5] = {0, 0, 0, 0, 0};
+
+int t = 0; 
+
+
+
+int test_Decl()
+{
+    // const Declr
+    const int a = 3 * (4 + (5 / 2) % (2));
+    const int a1 = 0, a2 = 3;
+    const int aa[1] = {1};
+    const int aaa[1] = {1}, bbb[1][2] = {{1, 2}}, a23 = 0;
+    /* var Declr*/
+    int c = 3 * (4 + (5 / 2) % (2));
+    int c1 = 0, c2 = c * a1;
+    int cc[1] = {1};
+    int ccc[1] = {1}, ddd[1][2] = {{1, 2}};
+    return a;
+}
+int funcDefInt1()
+{
+    return 0;
+}
+/**
+ * overview: test
+ */
+int funcDefInt2(int a)
+{
+    return a;
+}
+
+int funcDefInt3(int a[], int b[][3])
+{
+    return b[2][2] * a[1];
+}
+
+void funcDefVoid1()
+{ // empty
+    return ; 
+}
+
+void funcDefVoid2(int a)
+{
+    return; 
+}
+
+void funcDefVoid3(int a[], int b[][3], int c[][2], int ss)
+{
+    printf("%d", b[2][2] * a[1]);
+    return; 
+}
+
+void testBlock()
+{
+    int a1 = 0; 
+    int c = 2;
+    int array[3][1] = {{1}, {2}, {3}};  
+	int x[1] = {1}, y[1][3] = {1, 2, 3}, z[1][2] = {1, 2}; 
+	if (c == 2 && a1 == 1) {;}
+	funcDefVoid3(y[1], y, z, 1); 
+    {
+        int c1 = 0, c2 = c * a1;
+        int cc[1] = {1};
+        int ccc[1] = {1}, ddd[1][2] = {{1, 2}};
+    } // decl
+    {
+        array[2][1] = 1;
+        ;
+        1+1; // | [Exp] ';' //有无Exp两种情况
+        { //| Block
+            c = -1; 
+            a1 = c + 1; 
+        }
+        if (c || a1) { 
+            //| 'if' '(' Cond ')' Stmt [ 'else' Stmt ] // 1.有else 2.无else
+            c = -1; 
+        } else /* condition */ 
+        {
+            /* code */
+            c = 1; 
+        }
+
+        // if (c == 1) {
+        //     ; 
+        // }
+
+        //| 'while' '(' Cond ')' Stmt
+        while (c >= 0) {
+            c = c-1; 
+            if (c == 0) break;
+            if (!c) {;}
+            if (c == 1) continue;
+            //| 'break' ';' | 'continue' ';'
+        }
+        int a; a = getint(); 
+        ; 
+        ; 
+        return; 
+
+    } // stmt
+    return;
+}
+
+void pint()
+{
+    if (t < 8)
+    {
+        int i = 1;
+        while (i <= n)
+        {
+            /* code */
+            printf("%d", a[i]);
+            i = i + 1;
+        }
+        printf("\n");
+        t = t + 1;
+        return;
+    }
+    return;
+}
+
+void dfs(int x)
+{
+	int i;
+	if(x>n)
+		pint();
+	i = 1;
+	while (i <= n)
+	{
+		/* code */
+		if(!visit[i])
+		{
+			visit[i] = 1;
+			a[x] = i;
+			
+			dfs(x+1);
+			
+			
+			visit[i] = 0;
+			a[x] = 0;
+		}
+		i = i+1; 
+	}	
+	return; 
+}
+
+int main()
+{
+	printf("20373456\n"); 
+	printf("Please input n:");
+	n = getint(); 
+
+	dfs(1);
+	printf("/**/\n!\n");
+    printf("20373456\n");
+	printf("/**/\n!\n");
+    printf("20373456\n");
+	printf("/**/\n!\n");
+
+	return 0;
+}

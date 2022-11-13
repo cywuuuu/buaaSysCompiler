@@ -1,0 +1,25 @@
+.data
+str_3: .asciiz " \n"
+str_2: .asciiz "calculate test: "
+str_1: .asciiz "20373110\n"
+
+_main: 
+block_0:
+PrintStr{toPrint=str_1}
+Move{to=var_x_1, from=2}
+Move{to=var_y_2, from=0}
+Malloc{arr=var_z_3, len=2}
+Sw{from=var_x_1, arr=var_z_3, i=0}
+Sw{from=var_x_1, arr=var_z_3, i=1}
+Move{to=tmp_1, from=1}
+Move{to=tmp_2, from=0}
+Mul{to=tmp_3, from1=tmp_1, from2=1}
+Add{to=tmp_2, from1=tmp_2, from2=tmp_3}
+Mul{to=tmp_1, from1=tmp_1, from2=2}
+Lw{to=tmp_4, arr=var_z_3, i=tmp_2}
+PrintStr{toPrint=str_2}
+PrintInt{toPrint=tmp_4}
+PrintStr{toPrint=str_3}
+Return{retVal=0}
+Return{retVal=void}
+

@@ -1,0 +1,118 @@
+package Lexer;
+
+import java.io.EOFException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Pattern;
+
+public class Lexer {
+    Cursor cursor;
+
+    public Lexer(Cursor cursor) {
+        this.cursor = cursor;
+    }
+
+    public Token getToken() throws EOFException, LexicalException {
+        int l = cursor.getPos();
+        char a = cursor.consumeChar();
+        char b = cursor.nowChar();
+        TokenType type;
+        switch (a) {
+            case '!':
+                if (b == '=') {
+                    cursor.consumeChar();
+                    type = TokenType.NEQ;
+                } else {
+                    type = TokenType.NOT;
+                }
+                break;
+            case '&':
+                if (b == '&') {
+                    cursor.consumeChar();
+                    type = TokenType.AND;
+                } else { // &X => &' ', &1
+                    throw new LexicalException();
+                }
+                break;
+            case '|':
+                if (b == '|') {
+                    cursor.consumeChar();
+                    type = TokenType.OR;
+                } else { // &X => &' ', &1
+                    throw new LexicalException();
+                }
+                break;
+            
+            /*
+                中间略
+            */
+            
+            case '"':
+                //pass "
+                while (true) {
+                    char t = cursor.consumeChar();
+                    if (t == '"') {
+                        type = TokenType.FMT_STR;
+                        break;
+                    }
+                }
+                break;
+            default: //ident or integer
+                if (isdigit(a)) {
+                    while (isdigit(cursor.nowChar())) {
+                        cursor.consumeChar();
+                    }
+                    type = TokenType.INT_CONST;
+                } else if (isNonDigit(a)) {
+                    StringBuilder ident = new StringBuilder(String.valueOf(a));
+                    char t;//n
+                    while (true) {
+                        t = cursor.nowChar();//
+                        if (!(isNonDigit(t) || isdigit(t))) {
+                            break;
+                        }
+                        ident.append(t);
+                        cursor.consumeChar(); //pass n, t
+                    }
+                    if (TokenType.strKeyword.containsKey(ident.toString())) {
+                        type = TokenType.strKeyword.get(ident.toString());
+                    } else {
+                        type = TokenType.IDENT;
+                    }
+                } else {
+                    throw new LexicalException(); 
+                }
+
+        }
+        int r = cursor.getPos();
+        return new Token(type, cursor.pos2Str(l, r));
+    }
+
+    private boolean isdigit(char c) {
+        return c == '0' || c == '1' || c == '2' || c == '3'
+                || c == '4' || c == '5' || c == '6'
+                || c == '7' || c == '8' || c == '9';
+    }
+
+    private boolean isNonDigit(char c) {
+        String s = String.valueOf(c);
+        return Pattern.matches("^[a-zA-Z_]$", s);
+    }
+
+    public Token consumeToken() throws EOFException, LexicalException {
+
+        while (Character.isSpace(cursor.nowChar())) {
+            cursor.consumeChar();
+        }
+        Token token = getToken();
+        while (token.getType() == TokenType.LINE_COMMENT || token.getType() == TokenType.BLOCK_COMMENT) {
+            while (Character.isSpace(cursor.nowChar())) {
+                cursor.consumeChar();
+            }
+            token = getToken();
+        }
+        return token;
+    }
+
+
+}
